@@ -1,10 +1,14 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 
 
 class Category(models.Model):
     title = models.CharField(max_length=150)
     slug = models.SlugField(max_length=150, verbose_name='URL', unique=True)
+
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'slug': self.slug})
 
     def __str__(self):
         return self.title
@@ -16,6 +20,9 @@ class Category(models.Model):
 class Tag(models.Model):
     title = models.CharField(max_length=150)
     slug = models.SlugField(max_length=150, verbose_name='URL', unique=True)
+
+    def get_absolute_url(self):
+        return reverse('tag', kwargs={'slug': self.slug})
 
     def __str__(self):
         return self.title
@@ -34,6 +41,9 @@ class Post(models.Model):
     is_published = models.BooleanField(default=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='posts')
     tags = models.ManyToManyField(Tag, related_name='posts', blank=True)
+
+    def get_absolute_url(self):
+        return reverse('post', kwargs={'slug': self.slug})
 
     def __str__(self):
         return self.title
