@@ -9,18 +9,21 @@
                 </div> <!-- end header__logo -->
 
                 <ul class="header__social">
+                    {% if request.user.is_authenticated %}
                     <li>
-                        <a href="#0"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        Welcome, {{ user.username }}
                     </li>
                     <li>
-                        <a href="#0"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'login' %}">Login</a>
                     </li>
                     <li>
-                        <a href="#0"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="{% url 'register' %}">Register</a>
                     </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                    </li>
+                    {% endif %}
                 </ul> <!-- end header__social -->
 
                 <a class="header__search-trigger" href="#0"></a>
@@ -47,7 +50,7 @@
                     <h2 class="header__nav-heading h6">Site Navigation</h2>
 
                     <ul class="header__nav">
-                        <li class="current"><a href="index.html" title="">Home</a></li>
+                        <li class="current"><a href="{% url 'home' %}" title="">Home</a></li>
                         <li class="has-children">
                             <a href="#0" title="">Categories</a>
                             <ul class="sub-menu">
