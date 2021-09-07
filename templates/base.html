@@ -123,6 +123,26 @@
     </section> <!-- end s-pageheader -->
 
 
+    {% if messages %}
+
+        {% for message in messages %}
+
+            {% if message.tags == 'error' %}
+                <div class="alert-box alert-box--error hideit">
+                    <p>{{ message }}</p>
+                    <i class="fa fa-times alert-box__close"></i>
+                </div> <!-- end error -->
+            {% else %}
+                <div class="alert-box alert-box--{{ message.tags }} hideit">
+                    <p>{{ message }}</p>
+                    <i class="fa fa-times alert-box__close"></i>
+                </div> <
+            {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+
     <!-- s-content
     ================================================== -->
     {% block content %}
