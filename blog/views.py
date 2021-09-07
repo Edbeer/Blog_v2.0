@@ -53,7 +53,7 @@ class PostByTag(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Posts by tag: ' + Tag.objects.get(slug=self.kwargs['slug'])
+        context['title'] = 'Posts by tag: ' + str(Tag.objects.get(slug=self.kwargs['slug']))
         return context
 
 
