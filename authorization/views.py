@@ -20,8 +20,17 @@ def register(request):
 
 
 def user_login(request):
-    pass
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserLoginForm()
+    return render(request, 'authorization/login.html', {'form': form})
 
 
 def user_logout(request):
-    pass
+    logout(request)
+    return redirect('login')

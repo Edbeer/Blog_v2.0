@@ -9,12 +9,21 @@
                 </div> <!-- end header__logo -->
 
                 <ul class="header__social">
+                    {% if request.user.is_authenticated %}
+                    <li>
+                        Welcome, {{ user.username }}
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    {% else %}
                     <li>
                         <a href="{% url 'login' %}">Login</a>
                     </li>
                     <li>
                         <a href="{% url 'register' %}">Register</a>
                     </li>
+                    {% endif %}
                 </ul> <!-- end header__social -->
 
                 <a class="header__search-trigger" href="#0"></a>
