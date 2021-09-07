@@ -1,0 +1,16 @@
+{% load static %}
+{% for post in posts %}
+<article class="col-block popular__post">
+  <a href="{{ post.get_absolute_url }}" class="popular__thumb">
+    {% if post.photo %}
+    <img src="{{ post.photo.url }}" alt="">
+    {% else %}
+    <img src="{% static 'images/thumbs/small/wheel-150.jpg' %}" alt="">
+    {% endif %}
+  </a>
+  <h5><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
+  <section class="popular__meta">
+    <span class="popular__date"><span>on</span> <time datetime="{{ post.created_at|date:'Y.m.d' }}">{{ post.created_at|date:'Y.m.d' }}</time></span>
+  </section>
+</article>
+{% endfor %}
