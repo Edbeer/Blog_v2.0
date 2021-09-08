@@ -45,6 +45,12 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('post', kwargs={'slug': self.slug})
 
+    def get_comment(self):
+        return self.comments.filter(parent__isnull=True)
+
+    def get_child(self):
+        return self.comments.filter(parent__isnull=False)
+
     def __str__(self):
         return self.title
     

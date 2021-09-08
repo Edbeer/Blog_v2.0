@@ -1,7 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import F
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views import View
 from django.views.generic import ListView, DetailView
 from .models import *
 from .forms import *
@@ -66,6 +65,8 @@ def add_comment(request, pk):
     form = CommentForm(request.POST)
     if form.is_valid():
         comment = form.save(commit=False)
+        if request.POST.get('parent', None):
+            comment.parent_id = int(request.POST.get('parent'))
         comment.post = post
         comment.user = request.user
         comment.save()
