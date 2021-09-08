@@ -99,6 +99,33 @@
                 <!-- commentlist -->
                 <ol class="commentlist">
 
+                    {% for comment in post.comments.all %}
+                    <li class="depth-1 comment">
+
+                        <div class="comment__avatar">
+                            <img width="50" height="50" class="avatar" src="images/avatars/user-02.jpg" alt="">
+                        </div>
+
+                        <div class="comment__content">
+
+                            <div class="comment__info">
+                                <cite>{{ comment.user }}</cite>
+
+                                <div class="comment__meta">
+                                    <time class="comment-time">{{ comment.created_at }}</time>
+                                    <a class="reply" href="#">Reply</a>
+                                </div>
+                            </div>
+
+                            <div class="comment__text">
+                                <p>{{ comment.content }}</p>
+                            </div>
+
+                        </div>
+
+                    </li>  <!-- end comment level 1 -->
+                    {% endfor %}
+
                     <li class="depth-1 comment">
 
                         <div class="comment__avatar">
@@ -108,17 +135,16 @@
                         <div class="comment__content">
 
                             <div class="comment__info">
-                                <cite>Itachi Uchiha</cite>
+                                <cite>{{ comment.user }}</cite>
 
                                 <div class="comment__meta">
-                                    <time class="comment__time">Dec 16, 2017 @ 23:05</time>
+                                    <time class="comment__time">{{ comment.created_at }}</time>
                                     <a class="reply" href="#0">Reply</a>
                                 </div>
                             </div>
 
                             <div class="comment__text">
-                                <p>Adhuc quaerendum est ne, vis ut harum tantas noluisse, id suas iisque mei. Nec te inani ponderum vulputate,
-                                    facilisi expetenda has et. Iudico dictas scriptorem an vim, ei alia mentitum est, ne has voluptua praesent.</p>
+                                {{ comment.content|safe }}
                             </div>
 
                         </div>
@@ -247,23 +273,12 @@
 
                     <h3 class="h2">Add Comment</h3>
 
-                    <form name="contactForm" id="contactForm" method="post" action="">
+                    <form name="contactForm" id="contactForm" method="post" action="{% url 'add_comment' post.pk %}">
                         <fieldset>
 
-                            <div class="form-field">
-                                <input name="cName" type="text" id="cName" class="full-width" placeholder="Your Name" value="">
-                            </div>
-
-                            <div class="form-field">
-                                <input name="cEmail" type="text" id="cEmail" class="full-width" placeholder="Your Email" value="">
-                            </div>
-
-                            <div class="form-field">
-                                <input name="cWebsite" type="text" id="cWebsite" class="full-width" placeholder="Website" value="">
-                            </div>
-
+                            {% csrf_token %}
                             <div class="message form-field">
-                                <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Your Message"></textarea>
+                                <textarea name="content" id="cMessage" class="full-width" placeholder="Your Message"></textarea>
                             </div>
 
                             <button type="submit" class="submit btn--primary btn--large full-width">Submit</button>
