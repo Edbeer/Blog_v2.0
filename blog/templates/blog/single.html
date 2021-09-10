@@ -120,7 +120,7 @@
                             <div class="comment__text">
                                 <p>{{ comment.content }}</p>
                             </div>
-                            {% for com in post.get_child %}
+                            {% for com in comment.replies.all %}
                             <ul class="children">
 
                                 <li class="depth-2 comment">
@@ -168,7 +168,7 @@
                         <fieldset>
 
                             {% csrf_token %}
-                            <input type="hidden" name="parent" id="contactparent" value="">
+                            <input type="hidden" name="parent" id="contactparent" value="{{ comment.id }}">
                             <div class="message form-field">
                                 <textarea name="content" id="cMessage" class="full-width" placeholder="Your Message"></textarea>
                             </div>
