@@ -48,9 +48,6 @@ class Post(models.Model):
     def get_comment(self):
         return self.comments.filter(parent__isnull=True)
 
-    def get_child(self):
-        return self.comments.filter(parent__isnull=False)
-
     def __str__(self):
         return self.title
     
@@ -63,7 +60,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField(max_length=1500)
     created_at = models.DateTimeField(auto_now_add=True)
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True, related_name='replies')
 
     def __str__(self):
         return str(self.user)
