@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'ckeditor',
     'authorization.apps.AuthorizationConfig',
+    'contact.apps.ContactConfig',
 ]
 
 MIDDLEWARE = [
