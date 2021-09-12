@@ -41,7 +41,11 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'ckeditor',
     'authorization.apps.AuthorizationConfig',
+<<<<<<< HEAD
     'captcha',
+=======
+    'contact.apps.ContactConfig',
+>>>>>>> contactform
 ]
 
 MIDDLEWARE = [

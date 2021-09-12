@@ -23,9 +23,14 @@ import debug_toolbar
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
+<<<<<<< HEAD
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('authorization/', include('authorization.urls')),
     path('captcha/', include('captcha.urls')),
+=======
+    path('authorization/', include('authorization.urls')),
+    path('contact/', include('contact.urls')),
+>>>>>>> contactform
 ]
 
 if settings.DEBUG:
