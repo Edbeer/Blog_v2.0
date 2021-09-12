@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %} {{ post.title }} {% endblock %}
 {% block content %}
 <section class="s-content s-content--narrow s-content--no-padding-bottom">
 
@@ -46,7 +47,7 @@
             </p> <!-- end s-content__tags -->
 
             <div class="s-content__author">
-                <img src="images/avatars/user-03.jpg" alt="">
+                <img src="{% static 'images/avatars/user-03.jpg' %}" alt="">
 
                 <div class="s-content__author-about">
                     <h4 class="s-content__author-name">
@@ -120,36 +121,36 @@
                             <div class="comment__text">
                                 <p>{{ comment.content }}</p>
                             </div>
-                            {% for com in comment.replies.all %}
-                            <ul class="children">
-
-                                <li class="depth-2 comment">
-
-                                    <div class="comment__avatar">
-                                        <img width="50" height="50" class="avatar" src="{% static 'images/avatars/user-03.jpg' %}" alt="">
-                                    </div>
-
-                                    <div class="comment__content">
-
-                                        <div class="comment__info">
-                                            <cite>{{ com.user }}</cite>
-
-                                            <div class="comment__meta">
-                                                <time class="comment__time">{{ com.created_at }}</time>
-                                            </div>
-                                        </div>
-
-                                        <div class="comment__text">
-                                            <p>{{ com.content }}</p>
-                                        </div>
-
-                                    </div>
-
-                                </li>
-
-                            </ul>
-                            {% endfor %}
                         </div>
+                        {% for com in comment.replies.all %}
+                        <ul class="children">
+
+                            <li class="depth-2 comment">
+
+                                <div class="comment__avatar">
+                                    <img width="50" height="50" class="avatar" src="{% static 'images/avatars/user-03.jpg' %}" alt="">
+                                </div>
+
+                                <div class="comment__content">
+
+                                    <div class="comment__info">
+                                        <cite>{{ com.user }}</cite>
+
+                                        <div class="comment__meta">
+                                            <time class="comment__time">{{ com.created_at }}</time>
+                                        </div>
+                                    </div>
+
+                                    <div class="comment__text">
+                                        <p>{{ com.content }}</p>
+                                    </div>
+
+                                </div>
+
+                            </li>
+
+                        </ul>
+                        {% endfor %}
                     </li>  <!-- end comment level 1 -->
                     {% endfor %}
 
