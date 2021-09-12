@@ -21,10 +21,11 @@ from django.urls import path, include
 import debug_toolbar
 
 urlpatterns = [
-    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
-    path('authorization/', include('authorization.urls'))
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('authorization/', include('authorization.urls')),
+    path('captcha/', include('captcha.urls')),
 ]
 
 if settings.DEBUG:
