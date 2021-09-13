@@ -68,18 +68,22 @@
 
             <div class="s-content__pagenav">
                 <div class="s-content__nav">
+                    {% if previous_post %}
                     <div class="s-content__prev">
-                        <a href="#0" rel="prev">
+                        <a href="{% url 'post' previous_post.slug %}" rel="prev">
                             <span>Previous Post</span>
-                            Tips on Minimalist Design
+                            {{ previous_post.title }}
                         </a>
                     </div>
+                    {% endif %}
+                    {% if next_post %}
                     <div class="s-content__next">
-                        <a href="#0" rel="next">
+                        <a href="{% url 'post' next_post.slug %}" rel="next">
                             <span>Next Post</span>
-                            Less Is More
+                            {{ next_post.title }}
                         </a>
                     </div>
+                    {% endif %}
                 </div>
             </div> <!-- end s-content__pagenav -->
 

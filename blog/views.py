@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import F
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
+from next_prev import next_in_order, prev_in_order
 from .models import *
 from .forms import *
 
@@ -19,19 +20,6 @@ class HomePage(ListView):
 
     def get_queryset(self):
         return Post.objects.filter(is_published=True)
-
-
-class PostPage(DetailView):
-    model = Post
-    template_name = 'blog/single.html'
-    context_object_name = 'post'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        self.object.views = F('views') + 1
-        self.object.save()
-        self.object.refresh_from_db()
-        return context
 
 
 class PostByCategory(ListView):
@@ -89,3 +77,23 @@ def add_comment(request, pk):
             comment.user = request.user
             comment.save()
             return redirect(post.get_absolute_url(), pk=post.pk)
+
+
+def post_detail(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+
+    try:
+        next_post = post.get_next_by_created_at()
+    except Post.DoesNotExist:
+        next_post = None
+
+    try:
+        previous_post = post.get_previous_by_created_at()
+    except Post.DoesNotExist:
+        previous_post = None
+
+    return render(request, 'blog/single.html', {
+        'post': post,
+        'next_post': next_post,
+        'previous_post': previous_post
+    })
