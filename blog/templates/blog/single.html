@@ -41,7 +41,9 @@
 
                 <span class="s-content__tag-list">
 
-                        <a href="#0">{{ post.tags.title }}</a>
+                        {% for tag in post.tags.all %}
+                            <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+                        {% endfor %}
 
                 </span>
             </p> <!-- end s-content__tags -->
